@@ -1,0 +1,183 @@
+
+<!--
+/ Informática DP
+    -   https://youtu.be/nqu9Zt68J_M
+    -   https://github.com/infodp/fullstack_node_react/tree/main/node
+! Info random
+    !   Títulos
+    ?   Pasos
+    +   Código/Definiciones
+    *   Explicaciones
+    -   Ítems
+    /   Comentarios
+
+    / importante ya tener instalado NODE
+    / muy útil tener la Terminal dividida, para node y react, no hacer todo en uno e ir borrando
+    ? primero Carpeta node, luego Carpeta React
+    * nombres como "blog" son por que en el tutorial hace un blog
+    + Ctrl+c: cancela la ejecución de lo que esté en esa terminal
+    + cls: limpia la consola
+    * lo que importemos/instalemos se verá reflejado en el package.json
+    * cuidado con que las importaciones no terminen con .js , a veces da error
+    + npm: "node package manager"
+    + npx: "node package execute"
+        - ejecutador de paquetes binarios de npm
+        - viene incorporado al instalar npm
+        - nos permite descargar paquetes globales
+    + axios.: envía los datos cargados en el formulario al BackEnd
+    + React: libreria de Js OpenSource diseñada para crear Interfacer de Usuarios
+        - renderizado rápido
+        - librería basada en componentes
+        - es declarativa
+        - utiliza jsx
+    + jsx: extensión/sintáxis creada para poder ser usada en React
+        - html dentro de js
+    * en React, siempre que usemos la palabra class, hay que cambiarla por className porque ya está reservada
+        * cuando usemos Fontawesome hay que modificar la dirección
+            * ej: <button className="btn btn-primary">CREAR</button>
+    / de ser necesario desinstalar algún paquete
+        * npm uninstall anashe
+        !mejorar Routes    
+    + Hooks: api de react que nos ayuda a gestionar los estados de los componentes funcion
+        + Routes: contienen a Link
+            + Link: reemplaza a <a>, esto es React loco
+    /    <BrowserRouter>
+    /        <Routes>
+    /            <Route>
+    /        </Routes>
+    /    </BrowserRouter>
+            * estructura para llamar a Links
+            * cada Route tiene un path="/" y un element={<CompShowBlogs/>} />
+    
+
+
+
+
+/ empecé con la carpeta Proyect_P, dentro creamos la carpeta node, la de React/FrontEnd se genera después
+! Carpeta node
+    ? Terminal: cd node
+        * hay que posicionarse en la carpeta node
+    ? Terminal: npm init -y
+        * crea package.json y package-lock.json
+    ? Terminal: agregar debajo de main, "type": "module"
+        * estamos trabajando con React, sirve para poder usar el import
+    ? Terminal: npm i express cors mysql2 sequelize
+        * instalar paquetes para el back end
+        * mysql2: porque utilizamos Sequelize porque funciona con este paquete
+        * sequelize: es el orm para trabajar con estas DB
+        
+    ? dentro de node, creamos las carpetas:
+        - database:
+            - db.js
+
+        - controllers:
+            - BlogController.js
+
+        - routes:
+            - routes.js
+
+        - models:
+            - BlogModel.js
+
+    ? fuera de node, creamos app.js
+    ? creamos la base de datos desde phpMyAdmin o MySQL
+        * Sequelize dice que es necesario colocar en la tabla:
+            - createdAt Date
+            - updatedAt Date
+        ? completamos database/db.js con la conexión
+            + new Sequelize(nombreDB, usuario, contraseña)
+                * contraseña puede ser 'root' o ''
+    ? creamos los modelos en models/BlogModel.js
+            
+            + Models con sequelize: 
+                * Son la escencia se Sequelize, es una abtracción que representa una tabla en la DB
+                * En Sequelize, Model es una clase que extiende
+                * Model le dice lo que representa, nombre de la tabla, cant column y tipo de datos
+                * No es necesario que se llame como la tabla, por lo general empiezan con mayúscula y en singular "User"
+                * Los modelos se pueden definir como Sequelize.define o extendiendo del modelo y usando init
+            * de ser necesario, se puede colocar { type: DataTypes.NUMBER}
+    
+    ? completamos el controlador en controllers/BlogController.js
+        * se definen los métodos para el CRUD
+        * como usamos NODE, trabajamos con los parámetros (request, response)
+
+    ? completamos routes en routes/routes.js
+        * vamos a usar Express porque usamos el enrutador que nos ofrese Express
+    
+    ? completamos App.js
+        
+    ? Terminal: cd node
+    ? Terminal: node app
+        * iniciar el sistema back
+        * el flaco puso " nodemon app " pero me dió error
+    / Conexión exitosa a la DB, ya podemos acceder a traves del puerto indicado
+    !API TEST
+    / vamos a chequear que todo esté funcionando
+    / usamos la extension de VSC: Thunder Client, usamos la url del proyecto http://localhost:8000/
+        * ej: /blogs nos devuelve todo lo que tiene DB
+            * /blogs/id es por id
+            * GET   http://localhost:8000/blogs/3
+                * nos trae por id
+            * POST http://localhost:8000/blogs/
+                * { "title":"pruebas", "content":"contenido de prueba" }
+            * PUT http://localhost:8000/blogs/3
+                * { "title":"titulo editado", "content":"contenido editado" }
+            * DELETE http://localhost:8000/blogs/1
+
+
+! carpeta React
+    
+    * estando posicionado en la carpeta general (Proyect_P)
+    ? Terminal: npx create-react-app anashe
+        * le puse de nombre reactfront
+    ? Terminal: cd reactfront
+        * nos posicionamos en la carpeta
+    ? Terminal: npm start
+        * iniciamos nuestra app
+
+    ? en carpeta src creamos:
+        - blog
+            * vamos a guardar los archivos necesarios para la interfaz de usuario
+            - CreateBlog.js
+                * es llamado por App.js usando <CompShowBlogs></CompShowBlogs>
+            - EditBlog.js
+
+            - ShowBlogs.js
+
+
+    ? Terminal: npm install axios react-router-dom
+        * instalamos las dependencias necesarias
+        * se ven reflejadas en package.json
+    ? Terminal: npm install bootstrap
+        * evitamos colocar el link
+        * luego debemos importar la librería al index.js
+
+    ? import 'bootstrap/dist/css/bootstrap.min.css'
+        * importamos la libreria css en src/index.js
+
+    ? pegamos el link de fontawesome en public/index.html
+        * desde la página web copiamos el link para importarlo
+        * https://cdnjs.com/libraries/uuid/8.3.2
+            * <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js" integrity="sha512-UNM1njAgOFUa74Z0bADwAq8gbTcqZC8Ej4xPSzpnh0l6KMevwvkBvbldF9uR++qKeJ+MOZHRjV1HZjoRvjDfNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -->
